@@ -23,26 +23,26 @@
         $car = new Car($_POST['model'], $_POST['price'], $_POST['miles']);
         $car->save();
 
-        // // $first_car = new Car("2014 Porsche 911", 114991, 7864);
-        // // $second_car = new Car("2011 Ford F450", 55995, 14241);
-        // // $third_car = new Car("2013 Lexus RX 350", 44700, 20000);
-        // // $fourth_car = new Car("Mercedes Benz CLS550", 39900, 37979);
-        //
-        // $cars = array();
-        //
-        // $list_of_cars = array();
-        // foreach ($cars as $car) {
-        //     if ($car->worthBuying($_POST["price"])) {
-        //         array_push($list_of_cars, $car);
-        //     }
-        // }
         return $app['twig']->render('car_results.twig', array('newcar' => $car));
 
     });
 
+    $app->post("/search", function() use ($app) {
+        $cars_matching_search = array();
+
+        foreach (Car::getAll() as $car) {
+            if ($car->worthBuying($_POST['max_price'])) {
+                array_push($cars_matching_search, $car);
+            }
+        }
+        return $app['twig']->render('search.twig', array('searchcars' => $cars_matching_search));
+    });
+
+
     $app->post("/delete", function() use ($app) {
         return $app['twig']->render('delete.twig', array('cars' => Car::deleteAll()));
     });
+
 
     return $app;
 ?>
