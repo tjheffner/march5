@@ -5,16 +5,13 @@
 
 </head>
 <body>
-    <h1>Here are the cars that match your results:</h1>
+    <h1>Here is the car you added:</h1>
 
-    {% if cars is not empty %}
-        <p>here are all your cars:</p>
-        <ul>
-        {% for car in list_of_cars %}
-            <li>{{ car.getModel }} with {{ car.getMiles }} miles, for ${{ car.getPrice }} </li>
-        {% endfor %}
+        <p>Here is your car:</p>
+        <ul>{{ newcar.getModel }}
+        <li> {{ newcar.getMiles }} </li>
+        <li>{{ newcar.getPrice }} </li>
         </ul>
-    {% endif %}
-    <p><a href='/'>search again</a></p>
+    <p><a href='/'>Add another car</a></p>
 </body>
 </html>

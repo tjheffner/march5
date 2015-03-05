@@ -5,19 +5,29 @@
 
 </head>
 <body>
-    <h1>What are you looking for?</h1>
+    <h1>Add a car for sale:</h1>
+        {% if cars is not empty %}
+            <p>Here are all your cars:</p>
+            <ul>
+            {% for car in cars %}
+            {{ car.getModel }}
+                <li> {{ car.getMiles }} miles </li>
+                <li> $ {{ car.getPrice }} </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
 
-    <form action='/cars' method='post'>
+    <form action='/car_results' method='post'>
         <label for='model'>Car model?</label>
-        <input id='model' name='model' type='text'>
+        <input id='model' name='model' type='text' required>
 
-        <label for='price'>Maximum price?</label>
-        <input id='price' name='price' type='number'>
+        <label for='price'>Sale price?</label>
+        <input id='price' name='price' type='number' required>
 
-        <label for='miles'>Maximum miles?</label>
-        <input id='miles' name='miles' type='number'>
+        <label for='miles'>Current miles?</label>
+        <input id='miles' name='miles' type='number' required>
 
-        <button type='submit'>search</button>
+        <button type='submit'>Post</button>
     </form>
     <form action='/delete' method='post'>
         <button type='submit'>Delete</button>
